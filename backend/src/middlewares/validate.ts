@@ -7,7 +7,6 @@ import type { AnyZodObject } from "zod/v3";
 const validate = (schema : AnyZodObject) => (req: Request, res: Response, next: NextFunction) =>{
     try {
         schema.parse(req.body)
-
           next();
     } catch (error)  {
         if (error instanceof ZodError) {
