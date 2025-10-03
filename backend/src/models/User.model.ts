@@ -73,8 +73,8 @@ userSchema.methods.GenerateAccessToken = function (): string {
 };
 
 userSchema.methods.GenerateRefreshToken = function (): string {
-  const secret = process.env.ACCESS_TOKEN_SECRET;
-  const expiry = process.env.ACCESS_TOKEN_EXPIRY;
+  const secret = process.env.REFRESH_TOKEN_SECRET;
+  const expiry = process.env.REFRESH_TOKEN_EXPIRY;
 
   if (!secret || !expiry) {
     throw new Error("JWT env vars missing");
