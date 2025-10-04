@@ -16,10 +16,10 @@ const verifyUser = async (req:Request , res:Response ,next:NextFunction)=>{
             const Decodetoken = jwt.verify(token , accessTokenSecet)
 
             if (Decodetoken) {
-                throw new Error("Invalid Creadential")
+                throw new Error("Invalid Credential")
             }
 
-            req.user = Decodetoken
+            (req as any ).user = Decodetoken
             next()
            } catch (error) {
             throw new Error("")

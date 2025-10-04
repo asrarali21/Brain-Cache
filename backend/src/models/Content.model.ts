@@ -21,7 +21,7 @@ const ContentSchema = new Schema ({
         ref :"User",
         required : true
     },
-     tag:[{type : mongoose.Schema.Types.ObjectId , ref:"Tag"}],
+     tags:[{type : mongoose.Schema.Types.ObjectId , ref:"Tag"}],
 }, {timestamps:true})
 
 

@@ -3,5 +3,17 @@ import type { Request, Response } from "express";
 
 
 const postContent = async (req:Request , res : Response)=>{
-      const {title ,content,link}
+      const {title ,content,link } =req.body
+
+
+
+      const content = await Content
+
+
+
+
+      
+
+
+
 }
