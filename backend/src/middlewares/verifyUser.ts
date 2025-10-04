@@ -14,15 +14,21 @@ const verifyUser = async (req:Request , res:Response ,next:NextFunction)=>{
                 throw new Error("Secret is not there in env")
             }
             const Decodetoken = jwt.verify(token , accessTokenSecet)
+            console.log(Decodetoken);
+            
 
-            if (Decodetoken) {
+            if (!Decodetoken) {
                 throw new Error("Invalid Credential")
             }
 
             (req as any ).user = Decodetoken
+
             next()
-           } catch (error) {
-            throw new Error("")
+           } catch (err) {
+           res.status(400)
+            if (err instanceof Error) {
+             return res.status(400).json({ error: err.message });
+     }
            }
 }
 
