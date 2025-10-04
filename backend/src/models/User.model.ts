@@ -10,14 +10,10 @@ interface IUser extends Document {
     password: string;
     IspasswordCorrect(password: string): Promise<boolean>; // Change Boolean to boolean
     GenerateAccessToken(): string;
+    GenerateRefreshToken():string;
 }
 
 
-interface JWTPayload {
-    _id: string;
-    email: string;
-    name: string;
-}
 
 
 const userSchema = new Schema<IUser>({
@@ -82,8 +78,6 @@ userSchema.methods.GenerateRefreshToken = function (): string {
 
   const payload= {
     _id: this._id.toString(),
-    email: (this.email),
-    name: (this.name)
   };
 
   

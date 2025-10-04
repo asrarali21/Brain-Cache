@@ -11,6 +11,13 @@ const createUser = async (req: Request, res: Response) => {
     
      console.log(data);
 
+     const validUser  =  await User.find({email :data.email}) 
+
+
+     if (validUser) {
+      throw new Error("User Already Exist")
+     }
+
      const user = await User.create({
              name: data.name,
       email: data.email,
@@ -34,4 +41,39 @@ const createUser = async (req: Request, res: Response) => {
     
 }
 
-export {createUser}
+interface User {
+     email : string,
+     password : string
+}
+
+
+const loginUser = async (req : Request , res:Response)=>{
+   try {
+        const {email ,  password} : User = req.body
+      
+       const user = await User.findOne({email})
+
+       const validatePassword = user?.IspasswordCorrect(password)
+
+       if (!validatePassword) {
+          throw new Error("Incorrect Password")
+       }
+
+       const accessToken = user?.GenerateAccessToken()
+       const refreshToken = user?.GenerateRefreshToken()
+    
+       const options ={
+         httponly:true,
+         secure:false
+       }
+
+      return  res.status(200)
+       .cookie('accessToken' , accessToken , options)
+       .cookie('refreshToken' , refreshToken , options)
+       .json("User login Successfully")
+     
+   } catch (error) {
+     return res.status(400).json({ error: "Invalid request" });
+   }
+}
+export {createUser , loginUser}
