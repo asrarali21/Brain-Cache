@@ -3,6 +3,7 @@ import { User } from "../models/User.model.js";
 import { createUserSchema, type CreateUserInput } from "../schemas/user.schema.js";
 
 
+
 import type { Request, Response } from "express";
 
 const createUser = async (req: Request, res: Response) => {
@@ -76,4 +77,20 @@ const loginUser = async (req : Request , res:Response)=>{
      return res.status(400).json({ error: "Invalid request" });
    }
 }
-export {createUser , loginUser}
+
+
+const LogoutUser = async (req : Request , res: Response)=>{
+    
+
+       const options ={
+         httponly:true,
+         secure:false
+       }
+   return res.status(200)
+   .clearCookie("accessToken" , options)
+   .clearCookie("refreshToken" , options)
+   .json("User Logout Successfully")
+}
+
+
+export {createUser , loginUser ,LogoutUser}
