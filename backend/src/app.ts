@@ -5,6 +5,7 @@ import userRouter from "./routes/User.route.js";
 
 import cookieParser from "cookie-parser"
 import contentRouter from "./routes/Content.route.js";
+import tagRouter from "./routes/Tag.route.js";
 
 
 const app = express()
@@ -20,6 +21,7 @@ app.use(express.static("public"))
 
 app.use("/api/v1/users/" , userRouter)
 app.use("/api/v1/content/" ,contentRouter )
+app.use("/api/v1/tag/" ,tagRouter )
 
 
 export default app
