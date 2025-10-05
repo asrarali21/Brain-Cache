@@ -6,9 +6,7 @@ import { Content } from "../models/Content.model.js";
 const addContent = async (req:Request , res : Response)=>{
  try {
          const {title ,content,link } =req.body
-   
-   
-   
+
          const contents = await Content.create({
            user:(req as any).user._id,
            title,
