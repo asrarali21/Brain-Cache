@@ -21,6 +21,24 @@ const addContent = async (req:Request , res : Response)=>{
  }
 }
 
+const getContent = async(req : Request , res:Response)=>{
+        
+ try {
+     const content = await Content.find()
+      if (!content) {
+       throw new Error("Content Not Found")
+      }
+
+      return res.status(200).json({message:"Successfully Got Content" ,data:content})
+ } catch (error) {
+    if (error instanceof Error) {
+       return  res.status(400).json({error : error.message})
+      }
+       return res.status(400).json({ error: "Invalid request" });
+
+ }
+}
+
 const deleteContent = async(req : Request , res : Response)=>{
    
  try {
@@ -45,4 +63,4 @@ const deleteContent = async(req : Request , res : Response)=>{
 
 
 
-export  {addContent ,deleteContent}
+export  {addContent ,getContent ,deleteContent}
