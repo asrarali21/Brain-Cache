@@ -4,13 +4,11 @@ import mongoose, { Schema }  from "mongoose";
 
 
 const linkSchema  = new Schema ({
-   hash : {
-      type:String,
-   },
    user :{
       type : mongoose.Schema.Types.ObjectId,
-      ref : "User"
-   }
+      ref : "User",
+   },
+
 } , {timestamps:true})
 
 

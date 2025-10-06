@@ -21,6 +21,7 @@ const ContentSchema = new Schema ({
         ref :"User",
         required : true
     },
+    isPublic: { type: Boolean, default: false },
      tags:[{type : mongoose.Schema.Types.ObjectId , ref:"Tag"}],
 }, {timestamps:true})
 
