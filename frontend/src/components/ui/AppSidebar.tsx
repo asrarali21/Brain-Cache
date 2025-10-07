@@ -20,29 +20,32 @@ import {
   User,
   Brain,
   Search,
-  Archive
+  Archive,
+  Twitter,
+  Youtube,
+  FileText
 } from 'lucide-react'
 
 function AppSidebar() {
   // Navigation items
   const navigationItems = [
     {
-      title: "Dashboard",
-      icon: Home,
+      title: "Tweet",
+      icon: Twitter,
       url: "/dashboard",
     },
     {
-      title: "All Content",
-      icon: BookMarked,
+      title: "You Tube",
+      icon: Youtube,
       url: "/content",
     },
     {
-      title: "Tags",
-      icon: Tag,
+      title: "Document",
+      icon: FileText,
       url: "/tags",
     },
     {
-      title: "Shared",
+      title: "Links",
       icon: Share2,
       url: "/shared",
     },
@@ -60,14 +63,9 @@ function AppSidebar() {
 
   const accountItems = [
     {
-      title: "Profile",
+      title: "Login",
       icon: User,
       url: "/profile",
-    },
-    {
-      title: "Settings",
-      icon: Settings,
-      url: "/settings",
     },
   ]
 
@@ -125,6 +123,7 @@ function AppSidebar() {
           © 2024 BrainCache
         </div>
       </SidebarFooter>
+     
     </Sidebar>
   )
 }

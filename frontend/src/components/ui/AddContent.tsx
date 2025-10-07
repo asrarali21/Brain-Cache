@@ -1,5 +1,6 @@
 import { CircleX } from 'lucide-react'
 import React from 'react'
+import { Button } from './button'
 
 function AddContent({ open , onclose }) {
   if (!open) return null
@@ -20,7 +21,7 @@ function AddContent({ open , onclose }) {
             <label className="block mb-1 text-sm font-medium text-gray-700">Title</label>
             <input
               type="text"
-              className="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-black-500"
               placeholder="Enter title"
             />
           </div>
@@ -28,16 +29,11 @@ function AddContent({ open , onclose }) {
             <label className="block mb-1 text-sm font-medium text-gray-700">Link</label>
             <input
               type="text"
-              className="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-black-500"
               placeholder="Enter Link"
             />
           </div>
-          <button
-            type="submit"
-            className="w-full mt-4 rounded-md bg-blue-600 px-4 py-2 text-white font-semibold hover:bg-blue-700 transition cursor-pointer"
-          >
-            Add Content
-          </button>
+        <Button>Add Content</Button>
         </form>
       </div>
     </div>
