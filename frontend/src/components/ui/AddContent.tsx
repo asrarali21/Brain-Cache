@@ -1,11 +1,11 @@
 import { CircleX } from 'lucide-react'
 import React from 'react'
 
-function AddContent({ open, onclose }) {
+function AddContent({ open , onclose }) {
   if (!open) return null
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
+   <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
       <div className="relative w-full max-w-md rounded-lg bg-white shadow-lg p-8">
         <button
           className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition"
@@ -43,5 +43,6 @@ function AddContent({ open, onclose }) {
     </div>
   )
 }
+
 
 export default AddContent
