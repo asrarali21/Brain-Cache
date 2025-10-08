@@ -1,10 +1,41 @@
 import { Brain, Eye, Mail, User, Lock } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import {useForm} from "react-hook-form"
+import { useMutation } from '@tanstack/react-query'
+import axios from "axios"
+
+interface SignupForm{
+  name : string,
+  email:string,
+  password:string
+}
 
 function SignUp() {
     
-    const {register , handleSubmit , reset , formState :{errors}} = useForm()
+    const {register , handleSubmit , reset , formState :{errors}} = useForm<SignupForm>()
+
+
+     
+    const SignupMutation = useMutation({
+      mutationFn:(newUser:SignupForm)=>axios.post(`${import.meta.env.VITE_API_BASE_URL}/users/signup` , newUser , {withCredentials:true}),
+      onSuccess:(res)=>{
+        console.log("res data" , res.data);
+      },
+      onError:(error:any)=>{
+       console.log(error.response.data.error);
+      }
+    })
+    
+ 
+
+   const onSubmit = (data:SignupForm)=> {
+    console.log(data);
+    
+      SignupMutation.mutate(data) 
+   }
+
+  
+    
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center p-4">
@@ -22,7 +53,7 @@ function SignUp() {
 
         {/* Form */}
         <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
-          <form className="space-y-6">
+          <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
             {/* Name Field */}
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
@@ -34,10 +65,10 @@ function SignUp() {
                 {...register("name", {required:"Name is Required"})}
                   type="text"
                   id="name"
-                  name="name"
                   className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
                   placeholder="Enter your full name"
                 />
+                {errors.name && <p>{errors.name.message}</p>}
               </div>
             </div>
 
@@ -49,9 +80,9 @@ function SignUp() {
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
                 <input
+                 {...register("email", {required:"Name is Required"})}
                   type="email"
                   id="email"
-                  name="email"
                   className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
                   placeholder="Enter your email"
                   required
@@ -67,9 +98,9 @@ function SignUp() {
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
                 <input
+                 {...register("password", {required:"Name is Required"})}
                   type="password"
                   id="password"
-                  name="password"
                   className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
                   placeholder="Create a password"
                   required
