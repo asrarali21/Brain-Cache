@@ -12,10 +12,10 @@ const createUser = async (req: Request, res: Response) => {
     
      console.log(data);
 
-     const validUser  =  await User.find({email :data.email}) 
+     const existingUser  =  await User.findOne({email :data.email}) 
 
 
-     if (validUser) {
+     if (existingUser) {
       throw new Error("User Already Exist")
      }
 
