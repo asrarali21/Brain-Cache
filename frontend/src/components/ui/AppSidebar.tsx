@@ -23,10 +23,15 @@ import {
   Archive,
   Twitter,
   Youtube,
-  FileText
+  FileText,
+  User2Icon
 } from 'lucide-react'
+import { Button } from './button'
+import { useNavigate } from 'react-router-dom'
 
 function AppSidebar() {
+
+  const navigate = useNavigate()
   // Navigation items
   const navigationItems = [
     {
@@ -103,16 +108,13 @@ function AppSidebar() {
           <SidebarGroupLabel>Account</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {accountItems.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <a href={item.url} className="flex items-center gap-2">
-                      <item.icon className="h-4 w-4" />
-                      <span>{item.title}</span>
-                    </a>
+             
+                <SidebarMenuItem>
+                  <SidebarMenuButton className='cursor-pointer' onClick={()=>navigate("/")} asChild >
+                <span> <User2Icon/> <span>Login</span></span>  
                   </SidebarMenuButton>
                 </SidebarMenuItem>
-              ))}
+          
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
