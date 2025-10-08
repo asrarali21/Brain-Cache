@@ -1,7 +1,33 @@
+import { useMutation } from '@tanstack/react-query'
+import axios from 'axios'
 import { Brain, Eye, Mail, Lock } from 'lucide-react'
+import  { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 
+interface LoginForm {
+    email:string,
+    password:string
+}
+
 function SignIn() {
+     
+    const {register , handleSubmit , formState:{errors}} = useForm<LoginForm>()
+
+
+    const LoginMutation = useMutation({
+        mutationFn :(LoginUser : LoginForm)=>axios.post(`${import.meta.env.VITE_API_BASE_URL}/users/Login`, LoginUser , {withCredentials:true}  ),
+        onSuccess : (res)=>{
+           console.log(res.data);
+        }
+    })
+
+    const onSubmit = (data:LoginForm)=>{
+     console.log(data);
+     LoginMutation.mutate(data)
+    }
+
+
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
@@ -18,7 +44,7 @@ function SignIn() {
 
         {/* Form */}
         <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
-          <form className="space-y-6">
+          <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
             {/* Email Field */}
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
@@ -27,13 +53,13 @@ function SignIn() {
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
                 <input
+                {...register("email" , {required:"Email is Required"})}
                   type="email"
                   id="email"
-                  name="email"
                   className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
                   placeholder="Enter your email"
-                  required
                 />
+                {errors.email && <p>{errors.email.message}</p>}
               </div>
             </div>
 
@@ -45,13 +71,13 @@ function SignIn() {
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
                 <input
+                {...register("password" , {required:"Password is Required min "})}
                   type="password"
                   id="password"
-                  name="password"
                   className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
                   placeholder="Enter your password"
-                  required
                 />
+                 {errors.password && <p>{errors.password.message}</p>}
                 <button
                   type="button"
                   className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"

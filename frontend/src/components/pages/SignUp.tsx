@@ -1,5 +1,5 @@
 import { Brain, Eye, Mail, User, Lock } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import {useForm} from "react-hook-form"
 import { useMutation } from '@tanstack/react-query'
 import axios from "axios"
@@ -11,18 +11,21 @@ interface SignupForm{
 }
 
 function SignUp() {
-    
+      
     const {register , handleSubmit , reset , formState :{errors}} = useForm<SignupForm>()
-
+   
+     const navigate = useNavigate()
 
      
     const SignupMutation = useMutation({
       mutationFn:(newUser:SignupForm)=>axios.post(`${import.meta.env.VITE_API_BASE_URL}/users/signup` , newUser , {withCredentials:true}),
       onSuccess:(res)=>{
-        console.log("res data" , res.data);
+        console.log("Signup success:" , res.data);
+        navigate("/login")
+
       },
       onError:(error:any)=>{
-       console.log(error.response.data.error);
+       console.log("Sign up Failed",error.response.data.error);
       }
     })
     
@@ -80,13 +83,14 @@ function SignUp() {
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
                 <input
-                 {...register("email", {required:"Name is Required"})}
+                 {...register("email", {required:"Email is Required"})}
                   type="email"
                   id="email"
                   className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
                   placeholder="Enter your email"
                   required
                 />
+                  {errors.email && <p>{errors.email.message}</p>}
               </div>
             </div>
 
@@ -98,13 +102,14 @@ function SignUp() {
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
                 <input
-                 {...register("password", {required:"Name is Required"})}
+                 {...register("password", {required:"Password is Required"})}
                   type="password"
                   id="password"
                   className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
                   placeholder="Create a password"
                   required
                 />
+                  {errors.password && <p>{errors.password.message}</p>}
                 <button
                   type="button"
                   className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
