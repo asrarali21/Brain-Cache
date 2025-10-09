@@ -24,7 +24,8 @@ import {
   Twitter,
   Youtube,
   FileText,
-  User2Icon
+  User2Icon,
+  LogOut
 } from 'lucide-react'
 import { Button } from './button'
 import { useNavigate } from 'react-router-dom'
@@ -111,7 +112,7 @@ function AppSidebar() {
              
                 <SidebarMenuItem>
                   <SidebarMenuButton className='cursor-pointer' onClick={()=>navigate("/")} asChild >
-                <span> <User2Icon/> <span>Login</span></span>  
+                <span> <LogOut/> <span>Logout</span></span>  
                   </SidebarMenuButton>
                 </SidebarMenuItem>
           

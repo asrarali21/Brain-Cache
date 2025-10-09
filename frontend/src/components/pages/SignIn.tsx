@@ -2,7 +2,7 @@ import { useMutation } from '@tanstack/react-query'
 import axios from 'axios'
 import { Brain, Eye, Mail, Lock } from 'lucide-react'
 import  { useForm } from 'react-hook-form'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 interface LoginForm {
     email:string,
@@ -11,6 +11,7 @@ interface LoginForm {
 
 function SignIn() {
      
+    const navigate = useNavigate()
     const {register , handleSubmit , formState:{errors}} = useForm<LoginForm>()
 
 
@@ -18,6 +19,7 @@ function SignIn() {
         mutationFn :(LoginUser : LoginForm)=>axios.post(`${import.meta.env.VITE_API_BASE_URL}/users/Login`, LoginUser , {withCredentials:true}  ),
         onSuccess : (res)=>{
            console.log(res.data);
+           navigate("/dashboard")
         }
     })
 
