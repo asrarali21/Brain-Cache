@@ -46,24 +46,9 @@ function AppSidebar() {
       url: "/content",
     },
     {
-      title: "Document",
-      icon: FileText,
-      url: "/tags",
-    },
-    {
-      title: "Links",
-      icon: Share2,
-      url: "/shared",
-    },
-    {
       title: "Search",
       icon: Search,
       url: "/search",
-    },
-    {
-      title: "Archive",
-      icon: Archive,
-      url: "/archive",
     },
   ]
 
